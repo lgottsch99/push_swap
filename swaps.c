@@ -7,64 +7,72 @@
 sa (swap a): Swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements.
 sb (swap b): Swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements.
 ss : sa and sb at the same time.
+
+
+typedef struct s_stack {
+    t_list  *a;
+    t_list  *b;
+} t_stack;
 */
 
 //sa (swap a): Swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements.
-t_list  *sa(t_list *a) //insert first elem. after 2nd, 
+t_stack  *sa(t_stack *stack) //insert first elem. after 2nd, 
 {
     int     lstlen;
     t_list  *tmp;
     t_list  *third;
     //check len of list a
-    lstlen = ft_lstsize(a);
+    lstlen = ft_lstsize(stack->a);
     if (lstlen <= 1)
-        return (a);
+        return (stack);
     
-    tmp = a; //tmp pointing to 1st elem
-    a = a->next; //a pointing to 2nd element, which now 1st
-    third = a->next;
+    tmp = stack->a; //tmp pointing to 1st elem
+    stack->a = stack->a->next; //a pointing to 2nd element, which now 1st
+    third = stack->a->next;
         ft_printf("tmp val: %i\n", *(int*)tmp->content);
-        ft_printf("a val: %i\n", *(int*)a->content);
+        ft_printf("a val: %i\n", *(int*)stack->a->content);
         ft_printf("third val: %i\n", *(int*)third->content);
 
     //insert tmp btw a and third
-    a->next = tmp;
+    stack->a->next = tmp;
     tmp->next = third;
 
     ft_printf("sa\n");
-    return (a);
+    return (stack);
    // print_list(*a); //if print here ok, in main nr 2 is gone :(
 }
 
-t_list  *sb(t_list *b)
+t_stack  *sb(t_stack *stack)
 {
-    int     lstlen;
-    t_list  *tmp;
-    t_list  *third;
+	int     lstlen;
+	t_list  *tmp;
+	t_list  *third;
     //check len of list a
-    lstlen = ft_lstsize(b);
-    if (lstlen <= 1)
-        return (b);
+	lstlen = ft_lstsize(stack->b);
+	if (lstlen <= 1)
+		return (stack);
     
-    tmp = b; //tmp pointing to 1st elem
-    b = b->next; //a pointing to 2nd element, which now 1st
-    third = b->next;
+	tmp = stack->b; //tmp pointing to 1st elem
+	stack->b = stack->b->next; //a pointing to 2nd element, which now 1st
+	third = stack->b->next;
         ft_printf("tmp val: %i\n", *(int*)tmp->content);
-        ft_printf("b val: %i\n", *(int*)b->content);
+        ft_printf("b val: %i\n", *(int*)stack->b->content);
         ft_printf("third val: %i\n", *(int*)third->content);
 
     //insert tmp btw a and third
-    b->next = tmp;
-    tmp->next = third;
+	stack->b->next = tmp;
+	tmp->next = third;
 
-    ft_printf("sb\n");
-    return (b);
+	ft_printf("sb\n");
+	return (stack);
 
    // print_list(b); //if print here ok, in main nr 2 is gone :(
 }
 
-void    ss(t_list *a, t_list *b)
+t_stack	*ss(t_stack *stacks)
 {
-    sa(a);
-    sb(b);
+	stacks = sa(stacks);
+	stacks = sb(stacks);
+	ft_printf("ss\n");
+	return (stacks);
 }

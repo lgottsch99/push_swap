@@ -108,14 +108,13 @@ int	check_digits(char *str)
 	check = 0;
 	while (str[y])
 	{			
-		if (y == 0)
+		if (y == 0 && !ft_isdigit(str[y]))
 		{
-			//ft_printf("char is: %c\n", str[y]);
-			if (!ft_isdigit(str[y]))
-			{
-				if (str[y] != '-' && str[y] != '+')
-					check += 1;
-			}
+			//ft_printf("first not digit\n");
+			if (str[y] != '-' && str[y] != '+')
+				check += 1;
+			if ((str[y] == '-' || str[y] == '+') && !str[y + 1])
+				check += 1;
 		}
 		else if (y > 0 && !ft_isdigit(str[y]))
 			check += 1;

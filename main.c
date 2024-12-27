@@ -5,8 +5,9 @@
 /*
 TO DO 
 write all operation fts
-what if arg/input is empty? " " "" what if - or + only?
-single input string "2 6  8  9 0" should work too! 
+what if arg/input is empty? " " "" 
+what if - or + only? OK
+single input string "2 6  8  9 0" should work too! OK
 
 STRATEGY NEW
 1. read input into char list : The first argument should be at the top of the stack (be careful about the order).
@@ -67,21 +68,19 @@ void	replace_int(t_list **list)
 
 int	main(int argc, char *argv[])
 {
-	t_list	*a; //stack a: The stack a contains a random amount of negative and/or positive numbers which cannot be duplicated.
-	//t_list	*b; //stack b: empty
+	t_stack	stacks;
 
+	stacks.a = NULL; //stack a: The stack a contains a random amount of negative and/or positive numbers which cannot be duplicated.
+	stacks.b = NULL; //stack b: empty
 	if (argc <= 1 || argv[1][0] == '\0')
 		return (0);
 
-	a = NULL;
-	//b = NULL;
-
 	//1. read into char list 
-	a = read_into_list(argc, argv); //maybe add sth about empty "  " later
-	print_list(a);
+	stacks.a = read_into_list(argc, argv); //maybe add sth about empty "  " later
+	print_list(stacks.a);
 
 	//2. check each list elem for validity,
-	if (check_valid(&a) == 1)
+	if (check_valid(&stacks.a) == 1)
 	{
 	 	ft_printf("Error\n");
 	 	return (1);
@@ -89,10 +88,18 @@ int	main(int argc, char *argv[])
 	ft_printf("input ok\n");
 
 	//3. if all valid change to int
-	replace_int(&a);
-	print_int_list(a);
+	replace_int(&stacks.a);
+	//print_int_list(stacks.a, 'a');
+	print_both(&stacks);
+
+	//3.sort
 
 
-	//a = sa(a);
+	stacks = *rra(&stacks);
+	//print_int_list(stacks.a, 'a');
+	print_both(&stacks);
+
+	// stacks = *rra(&stacks);
+	// 	print_both(&stacks);
 
 }

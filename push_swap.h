@@ -5,6 +5,11 @@
 
 #include "./full_libft/full_libft.h"
 
+typedef struct s_stack {
+    t_list  *a;
+    t_list  *b;
+} t_stack;
+
 //check_input.c
 int	check_digits(char *str);
 int	check_dups(t_list **argv, int i);
@@ -14,12 +19,25 @@ int	check_valid(t_list **list);
 
 
 //swaps.c
-t_list  *sa(t_list *a);
-t_list  *sb(t_list *b);
-void    ss(t_list *a, t_list *b);
+t_stack  *sa(t_stack *stack);
+t_stack  *sb(t_stack *stack);
+t_stack	*ss(t_stack *stacks);
 
 //push.c
-void    pa(t_list *a, t_list *b);
+t_stack	*pa(t_stack *stacks);
+t_stack	*pb(t_stack *stacks);
+
+//reverse
+t_stack	*rra(t_stack *stacks); //Shift down all elements of stack a by 1.
+t_stack	*rrb(t_stack *stacks); //Shift down all elements of stack b by 1.
+t_stack	*rrr(t_stack *stacks);
+
+//rotate
+t_stack *ra(t_stack *stacks);//Shift up all elements of stack a by 1. The first element becomes the last one.
+t_stack *rb(t_stack *stacks);//Shift up all elements of stack a by 1. The first element becomes the last one.
+t_stack	*rr(t_stack *stacks);
+
+
 
 //read into list char
 t_list	*read_into_list(int argc, char *argv[]);
@@ -33,8 +51,9 @@ char    **check_whitespace(char *str);
 void    print_list(t_list *list);
 
 //utils
-void    print_int_list(t_list *list);
+void    print_int_list(t_list *list, char s);
 void    print_list(t_list *list);
+void	print_both(t_stack *stacks);
 
 
 
