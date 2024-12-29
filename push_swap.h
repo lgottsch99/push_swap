@@ -20,7 +20,9 @@ int	check_valid(t_list **list);
 
 //swaps.c
 t_stack  *sa(t_stack *stack);
+t_stack  *real_sa(t_stack *stack);
 t_stack  *sb(t_stack *stack);
+t_stack  *real_sb(t_stack *stack);
 t_stack	*ss(t_stack *stacks);
 
 //push.c
@@ -37,6 +39,10 @@ t_stack *ra(t_stack *stacks);//Shift up all elements of stack a by 1. The first 
 t_stack *rb(t_stack *stacks);//Shift up all elements of stack a by 1. The first element becomes the last one.
 t_stack	*rr(t_stack *stacks);
 
+//sort
+t_stack	*sort(t_stack *stacks);
+t_stack	*sort_3(t_stack *stacks);//list is def 3 in size
+t_stack	*sort_5(t_stack *stacks); //in max 12 operations!
 
 
 //read into list char
@@ -49,6 +55,12 @@ char    **check_whitespace(char *str);
 
 //main
 void    print_list(t_list *list);
+
+//free
+void	free_everything(t_stack *stacks);
+void	free_list(t_list *lst);
+
+
 
 //utils
 void    print_int_list(t_list *list, char s);

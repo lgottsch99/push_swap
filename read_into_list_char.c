@@ -2,12 +2,11 @@
 
 #include "push_swap.h"
 
-char    **check_whitespace(char *str)
+char    **check_whitespace(char *str)//go through arg and search for space to indicate multiple nrs
 {
     char    **ptr;
 
     ptr = NULL;
-    //go through arg and search for space to indicate multiple nrs
     if (ft_strchr(str, ' ') != NULL) //=whitespace within str
     {
         ptr = ft_split(str, ' '); //MALLOC

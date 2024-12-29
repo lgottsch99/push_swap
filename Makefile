@@ -7,7 +7,7 @@ LIBFTDIR= ./full_libft
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC= main.c read_into_list_char.c check_input.c utils.c swaps.c push.c reverse.c rotate.c
+SRC= main.c read_into_list_char.c check_input.c utils.c swaps.c push.c reverse.c rotate.c sort.c
 OBJ = $(SRC:.c=.o)
 
 LIBFTA= full_libft/libfull_libft.a

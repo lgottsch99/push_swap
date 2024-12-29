@@ -27,6 +27,7 @@ t_stack *ra(t_stack *stacks)//Shift up all elements of stack a by 1. The first e
 
 	//go to last and append first
 	ft_lstadd_back(&stacks->a, first);
+	
 	ft_printf("ra\n");
 	return (stacks);
 }
@@ -56,4 +57,5 @@ t_stack	*rr(t_stack *stacks)
     stacks = ra(stacks);
     stacks = rb(stacks);
 	ft_printf("rr\n");
+	return (stacks);
 }

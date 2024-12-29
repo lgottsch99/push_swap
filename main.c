@@ -21,6 +21,9 @@ STRATEGY NEW
 		check only digits, int range, dups
 
 3.sort
+	check if input already sorted, if yes do nothing
+	if no: 
+	???
 
 */
 
@@ -93,9 +96,10 @@ int	main(int argc, char *argv[])
 	print_both(&stacks);
 
 	//3.sort
+	if (!sort(&stacks))
+		return (0);
 
-
-	stacks = *rra(&stacks);
+	//stacks = *rra(&stacks);
 	//print_int_list(stacks.a, 'a');
 	print_both(&stacks);
 
