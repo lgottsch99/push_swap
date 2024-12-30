@@ -63,7 +63,7 @@ int	check_int_range(char *str)
 
 int	check_dups(t_list **list, int i) //only digits within int range
 {
-	ft_printf("in check dups\n");
+	//ft_printf("in check dups\n");
 
 	t_list	*tmp;
 	int		og;
@@ -127,7 +127,7 @@ int	check_digits(char *str)
 
 int	check_valid(t_list **list)
 {
-	ft_printf("in check valid\n");
+	//ft_printf("in check valid\n");
 
 	t_list	*ptr;
 	int 	size;
@@ -135,26 +135,26 @@ int	check_valid(t_list **list)
 	//go thru whole char list and check for each elem:
 		//check only digits, int range, dups
 	size = ft_lstsize(*list);
-	ft_printf("lst size: %i\n", size);
+	//ft_printf("lst size: %i\n", size);
 
 	ptr = *list;
 	i = 0;
 	while (i < size)
 	{
-		ft_printf("checking elem: %s\n", (char*)ptr->content);
+		//ft_printf("checking elem: %s\n", (char*)ptr->content);
 
 		if(check_digits(ptr->content) == 1) //sth not digit
 			return (1);
-		ft_printf("digits ok\n");
+		//ft_printf("digits ok\n");
 
 		//ft_printf("check is: %i\n", check);
 		if(check_int_range(ptr->content) == 1)
 			return (1);
-		ft_printf("int range ok\n");
+		//ft_printf("int range ok\n");
 
 		if(check_dups(list, i) == 1)
 			return (1);
-		ft_printf("dup ok\n");
+		//ft_printf("dup ok\n");
 
 		ptr = ptr->next;
 		i++;

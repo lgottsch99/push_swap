@@ -20,10 +20,14 @@ STRATEGY NEW
 	go trhu whole list:
 		check only digits, int range, dups
 
-3.sort
+3.sort and print operations
 	check if input already sorted, if yes do nothing
 	if no: 
+		push everything to b but in descending-sorted order, then push back
+		before doing anything, always scan and calc for cheapest number
 	???
+
+4. free list and all memory
 
 */
 
@@ -53,7 +57,7 @@ void	replace_int(t_list **list)
 		integer = (int *)malloc(sizeof(int));
 		// if(!integer)
 		// 	free_all(); //TO DOO
-		ft_printf("malloced\n");
+		//ft_printf("malloced\n");
 
 		//atoi str and copy into int space
 		nr = ft_atoi(str);
@@ -75,7 +79,7 @@ int	main(int argc, char *argv[])
 
 	stacks.a = NULL; //stack a: The stack a contains a random amount of negative and/or positive numbers which cannot be duplicated.
 	stacks.b = NULL; //stack b: empty
-	if (argc <= 1 || argv[1][0] == '\0')
+	if (argc <= 1 || argv[1][0] == '\0') //ggf check for "" 2 3 
 		return (0);
 
 	//1. read into char list 
@@ -92,12 +96,10 @@ int	main(int argc, char *argv[])
 
 	//3. if all valid change to int
 	replace_int(&stacks.a);
-	//print_int_list(stacks.a, 'a');
 	print_both(&stacks);
 
 	//3.sort
-	if (!sort(&stacks))
-		return (0);
+	stacks = *sort(&stacks);
 
 	//stacks = *rra(&stacks);
 	//print_int_list(stacks.a, 'a');
@@ -105,5 +107,6 @@ int	main(int argc, char *argv[])
 
 	// stacks = *rra(&stacks);
 	// 	print_both(&stacks);
-
+	//free_everything(stacks);
+	return (0);
 }

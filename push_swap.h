@@ -41,8 +41,11 @@ t_stack	*rr(t_stack *stacks);
 
 //sort
 t_stack	*sort(t_stack *stacks);
-t_stack	*sort_3(t_stack *stacks);//list is def 3 in size
 t_stack	*sort_5(t_stack *stacks); //in max 12 operations!
+
+//sort3
+int		get_position(t_list *list, t_list *node);
+t_stack	*sort_3(t_stack *stacks);//list is def 3 in size
 
 
 //read into list char
@@ -50,6 +53,9 @@ t_list	*read_into_list(int argc, char *argv[]);
 void	create_str_to_list(t_list **list, char *argv);
 void    add_to_list(t_list **list, char *ptr);
 char    **check_whitespace(char *str);
+
+//bigger sort
+t_stack	*do_bigger_sort(t_stack	*stacks);
 
 
 
@@ -66,6 +72,8 @@ void	free_list(t_list *lst);
 void    print_int_list(t_list *list, char s);
 void    print_list(t_list *list);
 void	print_both(t_stack *stacks);
+t_list	*get_max(t_list	*list);
+t_list	*get_min(t_list	*list);
 
 
 

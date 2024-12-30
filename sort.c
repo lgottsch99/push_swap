@@ -5,8 +5,6 @@
 /*
 1. check if input already sorted
 
-2. sort accoring to size??
-
 typedef struct s_stack {
     t_list  *a;
     t_list  *b;
@@ -52,44 +50,6 @@ int	is_input_sorted(t_stack *stacks) //returns 1 if sorted, 0 if not
 	return (0);
 }
 
-t_stack	*sort_3(t_stack *stacks)//list is def 3 in size, only a atm
-{
-	ft_printf("in sort 3\n");
-
-	t_list	*tmp;
-	t_list	*last;
-
-	last = ft_lstlast(stacks->a);
-	while (is_input_sorted(stacks) == 0)
-	{
-	tmp = stacks->a;
-	if (*(int *)tmp->content > *(int *)tmp->next->content)
-	{
-		ft_printf("1st > 2nd\n");
-		stacks = sa(stacks);
-		print_both(stacks);
-	}
-	if (is_input_sorted(stacks))
-		return (stacks);
-	tmp = stacks->a;
-	if (*(int *)tmp->content > *(int *)last->content)
-	{
-		ft_printf("1st > 3rd\n");
-		stacks = rra(stacks);
-		print_both(stacks);
-	}
-	if (is_input_sorted(stacks))
-		return (stacks);
-	tmp = stacks->a;
-	if (*(int *)tmp->next->content > *(int *)last->content)
-	{
-		ft_printf("2nd > 3rd\n");
-		stacks = rra(stacks);
-		print_both(stacks);
-	}
-	}
-	return (stacks);
-}
 
 t_stack	*sort_2(t_stack *stacks)//list is def 2 in size
 {
@@ -106,25 +66,54 @@ t_stack	*sort_2(t_stack *stacks)//list is def 2 in size
 	return (stacks);
 }
 
-// t_stack *sort_4_for_5(t_stack *stacks) //only in a 
-// {
-// 	t_list	*tmp;
-// 	t_list	*last;
+t_stack *sort_one_back(t_stack *stacks) //only in a 
+{
+		ft_printf("in sort one back\n");
 
-// 	last = ft_lstlast(stacks->a);
-// 	tmp = stacks->a;
-// 	if (*(int *)tmp->content < *(int *)tmp->next->content)
-// 		return (stacks);
-// 	if (*(int *)tmp > *(int *)last->content) // easy case
-// 		stacks = ra(stacks);
+	t_list	*tmp;
+	t_list	*last;
+	int		check;
+
+	last = ft_lstlast(stacks->a);
+	ft_printf("last is: %i\n", *(int *)last->content);
+	tmp = stacks->a;
+	if (*(int *)tmp->content < *(int *)tmp->next->content)
+		return (stacks);
+	if (*(int *)tmp->content > *(int *)last->content) // easy case
+		return (ra(stacks));
 		
-// }
+	check = 1;
+	while (is_input_sorted(stacks) == 0 && check == 1) //find right pos.
+	{
+		check = 0;
+		tmp = stacks->a;
+		if (*(int *)tmp->content > *(int *)tmp->next->content)
+		{
+			stacks = sa(stacks);
+			check = 1;
+		}
+		if (is_input_sorted(stacks) == 1)
+			return (stacks);
+		tmp = stacks->a;
+		if ( *(int *)tmp->next->content > *(int *)tmp->next->next->content)
+		{
+			stacks = ra(stacks);
+			check = 1;
+		}
+		if (is_input_sorted(stacks) == 1)
+			return (stacks);
+	}
+	//rotate back to smallest = first
+	while (is_input_sorted(stacks) == 0)
+		stacks = rra(stacks);
+	return (stacks);
+}
 
 t_stack	*sort_5(t_stack *stacks) //in max 12 operations!
 {
 	ft_printf("in sort 5\n");
-	t_list	*tmp;
-	t_list	*last;
+	// t_list	*tmp;
+	// t_list	*last;
 
 	//divide into 2 in b and 3 in a
 	stacks = pb(stacks);
@@ -149,6 +138,9 @@ t_stack	*sort_5(t_stack *stacks) //in max 12 operations!
 		// ra (first becomes last) -> check if new one smaller than next and bigger than one before, if not do again
 		// 
 		//sort to get smallest up
+	stacks = pa(stacks);
+		print_both(stacks);
+	stacks = sort_one_back(stacks); //TO DO
 
 
 	
@@ -165,14 +157,22 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 	if (is_input_sorted(stacks) == 1)//check if list already sorted
 	{
 		ft_printf("input is sorted\n");
-		return (NULL);
+		return (stacks);
 	}
+
+
+
 	if (size == 2) // change later
 		stacks = sort_2(stacks);
-	if (size == 3)
+	else if (size == 3)
 		stacks = sort_3(stacks);
-	if (size == 5)
-		stacks = sort_5(stacks);
+	// if (size == 5)
+	// 	stacks = sort_5(stacks);
+	else
+	{
+		stacks = do_bigger_sort(stacks);
+
+	}
 
 	return (stacks);
 }

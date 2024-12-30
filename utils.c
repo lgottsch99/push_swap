@@ -57,3 +57,39 @@ void	print_both(t_stack *stacks)
 	}
 	ft_printf("\n");
 }
+
+t_list	*get_min(t_list	*list)
+{
+	//traverse int list and keep track of node w smallest value
+	t_list	*min;
+
+	min = list; //set to 1st node
+	while (list)
+	{
+		list = list->next; //go to next
+		if (list)
+		{
+			if (*(int *)min->content > *(int *)list->content)//change if current is bigger than new 
+				min = list;
+		}
+	}
+	return (min);
+}
+
+t_list	*get_max(t_list	*list)
+{
+	//traverse int list and keep track of node w smallest value
+	t_list	*max;
+
+	max = list; //set to 1st node
+	while (list)
+	{
+		list = list->next; //go to next
+		if (list)
+		{
+			if (*(int *)max->content < *(int *)list->content)//change if current is smaller than new 
+				max = list;
+		}
+	}
+	return (max);
+}

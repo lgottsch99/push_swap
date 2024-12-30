@@ -68,7 +68,7 @@ t_list	*read_into_list(int argc, char *argv[])
 		ptr = check_whitespace(argv[i]); //returns split array if space is found
 		if (ptr)
 		{
-			ft_printf("single str\n");
+			//ft_printf("single str\n");
 			while (*ptr)
 			{
 				//ft_printf("in loop\n");
@@ -79,7 +79,7 @@ t_list	*read_into_list(int argc, char *argv[])
 		}
 		else
 		{
-			ft_printf("normal arg\n");
+			//ft_printf("normal arg\n");
 			create_str_to_list(&list, argv[i]); //MALLOC
 		}
 		i++;
