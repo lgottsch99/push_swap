@@ -9,7 +9,9 @@ rrb (reverse rotate b): Shift down all elements of stack b by 1. The last elemen
 rrr : rra and rrb at the same time.
 */
 
-t_stack	*rra(t_stack *stacks) //Shift down all elements of stack a by 1.
+
+
+t_stack	*real_rra(t_stack *stacks) //Shift down all elements of stack a by 1.
 {
 	t_list	*last;
 	int		lstsize;
@@ -33,11 +35,17 @@ t_stack	*rra(t_stack *stacks) //Shift down all elements of stack a by 1.
 	}
 	//ft_printf("new last: %i\n", *(int*)newlast->content);
 	newlast->next = NULL;
-	ft_printf("rra\n");
 	return (stacks);
 }
 
-t_stack	*rrb(t_stack *stacks) //Shift down all elements of stack b by 1.
+t_stack	*rra(t_stack *stacks) //Shift down all elements of stack a by 1.
+{
+	ft_printf("rra\n");
+	stacks = real_rra(stacks);
+	return (stacks);
+}
+
+t_stack	*real_rrb(t_stack *stacks)
 {
 	t_list	*last;
 	int		lstsize;
@@ -61,14 +69,21 @@ t_stack	*rrb(t_stack *stacks) //Shift down all elements of stack b by 1.
 	}
 	//ft_printf("new last: %i\n", *(int*)newlast->content);
 	newlast->next = NULL;
+	return (stacks);
+
+}
+
+t_stack	*rrb(t_stack *stacks) //Shift down all elements of stack b by 1.
+{
 	ft_printf("rrb\n");
+	stacks = real_rrb(stacks);
 	return (stacks);
 }
 
 t_stack	*rrr(t_stack *stacks)
 {
-    stacks = rra(stacks);
-    stacks = rrb(stacks);
 	ft_printf("rrr\n");
+    stacks = real_rra(stacks);
+    stacks = real_rrb(stacks);
 	return (stacks);
 }

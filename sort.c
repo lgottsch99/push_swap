@@ -170,8 +170,15 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 	// 	stacks = sort_5(stacks);
 	else
 	{
-		stacks = do_bigger_sort(stacks);
+		//push 2 to b
+		stacks = pb(stacks);
+		stacks = pb(stacks);
 
+		print_both(stacks);
+		stacks = do_bigger_sort(stacks);
+		print_both(stacks);
+
+		stacks = do_bigger_sort(stacks);
 	}
 
 	return (stacks);

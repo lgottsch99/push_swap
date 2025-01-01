@@ -11,7 +11,7 @@ rr : ra and rb at the same time.
 
 */
 
-t_stack *ra(t_stack *stacks)//Shift up all elements of stack a by 1. The first element becomes the last one.
+t_stack *real_ra(t_stack *stacks)
 {
 	int	size;
 	t_list	*first;
@@ -27,12 +27,17 @@ t_stack *ra(t_stack *stacks)//Shift up all elements of stack a by 1. The first e
 
 	//go to last and append first
 	ft_lstadd_back(&stacks->a, first);
-	
-	ft_printf("ra\n");
 	return (stacks);
 }
 
-t_stack *rb(t_stack *stacks)//Shift up all elements of stack a by 1. The first element becomes the last one.
+t_stack *ra(t_stack *stacks)//Shift up all elements of stack a by 1. The first element becomes the last one.
+{
+	ft_printf("ra\n");
+	stacks = real_ra(stacks);
+	return (stacks);
+}
+
+t_stack *real_rb(t_stack *stacks)
 {
 	int	size;
 	t_list	*first;
@@ -48,14 +53,20 @@ t_stack *rb(t_stack *stacks)//Shift up all elements of stack a by 1. The first e
 
 	//go to last and append first
 	ft_lstadd_back(&stacks->b, first);
+	return (stacks);
+}
+
+t_stack *rb(t_stack *stacks)//Shift up all elements of stack a by 1. The first element becomes the last one.
+{
 	ft_printf("rb\n");
+	stacks = real_rb(stacks);
 	return (stacks);
 }
 
 t_stack	*rr(t_stack *stacks)
 {
-    stacks = ra(stacks);
-    stacks = rb(stacks);
 	ft_printf("rr\n");
+    stacks = real_ra(stacks);
+    stacks = real_rb(stacks);
 	return (stacks);
 }
