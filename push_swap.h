@@ -10,6 +10,24 @@ typedef struct s_stack {
     t_list  *b;
 } t_stack;
 
+typedef struct s_info { //splitten in eins für info und eins für cheapest!
+	int	size_a;
+	int size_b;
+	int rot_a; //indicating rotation direction: 1 is up ra, 0 is down rra
+	int rot_b; //indicating rotation direction: 1 is up ra, 0 is down rra 
+	int steps_a; //keeping amount of steps for each pos
+	int steps_b;
+	int rr; //amount steps for rr
+	int rrr;
+	int total_steps;
+	int pos_a;
+	// int cheapest_pos_a;
+	// int cheapest_steps_a;
+	// int cheapest_rot_a; //to safe direction for execution
+	// int cheapest_rot_b;
+
+} t_info;
+
 //check_input.c
 int	check_digits(char *str);
 int	check_dups(t_list **argv, int i);
@@ -74,6 +92,7 @@ void    print_list(t_list *list);
 void	print_both(t_stack *stacks);
 t_list	*get_max(t_list	*list);
 t_list	*get_min(t_list	*list);
+void	print_info(t_info *info);
 
 
 

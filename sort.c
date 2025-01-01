@@ -173,12 +173,12 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 		//push 2 to b
 		stacks = pb(stacks);
 		stacks = pb(stacks);
-
 		print_both(stacks);
-		stacks = do_bigger_sort(stacks);
-		print_both(stacks);
-
-		stacks = do_bigger_sort(stacks);
+		while (ft_lstsize(stacks->a) > 3)
+		{
+			stacks = do_bigger_sort(stacks);
+			print_both(stacks);
+		}
 	}
 
 	return (stacks);
