@@ -34,13 +34,14 @@ t_list	*get_node_at_pos(t_list *list, int pos)
 			node = node->next;
 		else
 			break ;
+		i++;
 	}
 	return (node);
 }
 
-int	get_pos_in_b(t_list	*node_a, t_list	*b, t_list	*min)//we know safe dass new < max!
+int	get_pos_in_b(t_list	*node_a, t_list	*b, t_list	*max)//we know safe dass new < max!
 {
-	//TO DO : LOGIK atm != DESCENDING ORDER!!!
+	// LOGIK = DESCENDING ORDER!!!
 
 	//einfach von anfang bis ende durchgehen!
 	int	pos;
@@ -48,18 +49,18 @@ int	get_pos_in_b(t_list	*node_a, t_list	*b, t_list	*min)//we know safe dass new 
 	t_list	*next;
 
 	pos = 0;
-	tmp = min; //start at min
+	tmp = max; //start at max
 	if (tmp->next)
 		next = tmp->next;
 	else
 		next = b; //falls am ende start am anfang
 
-	//go to minpos, then go further until next is < than new
+	//go to maxpos, then go further until next is < than new
 	while (pos == 0)//only change pos if found
 	{
 		//compare tmp + next to new
 		if ((*(int *)tmp->content > *(int *)node_a->content) && (*(int *)next->content < *(int *)node_a->content))
-			pos = get_position(b, tmp);
+			pos = get_position(b, next);
 		else
 		{
 			if (tmp->next)
@@ -72,7 +73,7 @@ int	get_pos_in_b(t_list	*node_a, t_list	*b, t_list	*min)//we know safe dass new 
 				next = b;
 		}
 	}
-	ft_printf("pos bigger für new in b: %i\n", pos);
+	ft_printf("pos smaller für new in b: %i\n", pos);
 	return (pos);
 }
 
@@ -90,11 +91,10 @@ int calc_steps(t_list *lst, int pos, int *rot) //pos needs to be 1 to push corre
 		mid = size / 2;
 
 	steps = 0;
-
 	if (pos <= mid)//in erster hälfte
 	{
 		*rot = 1; //ra
-		while (pos != 1)
+		while (pos > 1)
 		{
 			pos--;
 			steps++;
@@ -147,7 +147,7 @@ int calc_steps_last(t_list *lst, int pos, int *rot) //pos needs to be LAST, whic
 			steps++;
 		}
 	}
-		ft_printf("steps b to last: %i\n", steps);
+	ft_printf("steps b to last: %i\n", steps);
 
 	return (steps);
 }
@@ -187,11 +187,11 @@ int	rotation_b(t_list *node_a, t_list *b, t_info *info)
 		ft_printf("node_a: %i would be in between\n", *(int*)node_a->content);
 
 		//traverse list b and find correct pos for node_a
-		pos_in_b = get_pos_in_b(node_a, b, min); //node at posinb is bigger than new // TO DO : update ft
-		ft_printf("pos for a in b would be: %i\n", pos_in_b);
+		pos_in_b = get_pos_in_b(node_a, b, max); //node at posinb is smaller than new // TO DO : update ft
+		//ft_printf("pos for a in b would be: %i\n", pos_in_b);
 		//calc steps how to get there (rotation only)s
 		if (pos_in_b != 1)
-			info->steps_b = calc_steps_last(b, pos_in_b, &info->rot_b); //bigger should be last!
+			info->steps_b = calc_steps(b, pos_in_b, &info->rot_b); //smaller should  be 1st!!
 		else 
 			info->steps_b = 0;
 	}
@@ -337,8 +337,6 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 			ft_printf("direction rot_a: %i\n", info.rot_a);
 
 	//2. check conditions in b: (und size b? bei 2 eig egal)
-		//node in a > maxb oder < minb
-		//if dazwischen: get position of closest 
 		info.steps_b = rotation_b(node, stacks->b, &info);
 			ft_printf("rotation steps b: %i\n", info.steps_b);
 			ft_printf("direction rot_b: %i\n", info.rot_b);
@@ -354,7 +352,7 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 			{
 				while (info.steps_a > 0 && info.steps_b > 0)
 				{
-					info.rr++;
+					info.rr += 1;
 					info.steps_a--;
 					info.steps_b--;
 				}
@@ -363,7 +361,7 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 			{
 				while (info.steps_a > 0 && info.steps_b > 0)
 				{
-					info.rrr++;
+					info.rrr += 1;
 					info.steps_a--;
 					info.steps_b--;
 				}

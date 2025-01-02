@@ -75,6 +75,8 @@ char    **check_whitespace(char *str);
 //bigger sort
 t_stack	*do_bigger_sort(t_stack	*stacks);
 
+//push back
+t_stack	*push_back(t_stack *stacks);
 
 
 //main

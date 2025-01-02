@@ -170,7 +170,7 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 	// 	stacks = sort_5(stacks);
 	else
 	{
-		//push 2 to b
+		//PHASE 1: push 2 to b
 		stacks = pb(stacks);
 		stacks = pb(stacks);
 		print_both(stacks);
@@ -179,6 +179,18 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 			stacks = do_bigger_sort(stacks);
 			print_both(stacks);
 		}
+		//rotate b so that max on top
+
+		stacks = sort_3(stacks);
+		
+		//push back to a (!a ASCENDING ORDER smallest 1st)
+		stacks = push_back(stacks);
+			//TO DO
+		//for 1st in b: 
+			//find correct pos in a to push 
+			//rotate a so that one bigger is at 1
+			//pa
+
 	}
 
 	return (stacks);
