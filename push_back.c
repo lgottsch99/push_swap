@@ -37,13 +37,8 @@ int calc_steps_a(t_list *lst, int pos, int *rot) //pos needs to be 1 to push cor
 	return (steps);
 }
 
-
-int	get_pos_in_a(int nr_b, t_list *a) //TO DO : check if working
+int	inbetween(int nr_b, t_list *a)
 {
-	//3 scenarios!: min, max or inbetween
-		//if min or max i need current min at 1
-
-	//get pos first and decide which way to rot a eff. next
 	t_list *current;
 	t_list *one_before;
 	int		pos;
@@ -64,8 +59,33 @@ int	get_pos_in_a(int nr_b, t_list *a) //TO DO : check if working
 			break;
 		pos++;
 	}
-	ft_printf("pos for stack b %i in a ", nr_b); //at pos is the one bigger
 	return (pos);
+
+}
+
+int	get_pos_in_a(int nr_b, t_list *a) //TO DO : check if working
+{
+	//3 scenarios!: min, max or inbetween
+		//if min or max i need current min at 1
+	int		pos;
+	//get pos first and decide which way to rot a eff. next
+	//if min /max
+	t_list	*min;
+	t_list	*max;
+
+	min = get_min(a);
+	max = get_max(a);
+	pos = 0;
+	if (nr_b < *(int *)min->content || nr_b > *(int *)max->content)//nr is new min or max
+	{
+		pos = get_position(a, min);
+	}
+	else
+	{
+		pos = inbetween(nr_b, a);
+	}
+	ft_printf("pos for stack b %i in a ", nr_b); //at pos is the one bigger
+		return (pos);
 }
 
 t_stack	*final_rot_a(t_stack *stacks)
@@ -115,7 +135,6 @@ t_stack	*push_back(t_stack *stacks)//push back to a (!a ASCENDING ORDER smallest
 		//TODO check if new max min or inbetween!
 		pos_a = get_pos_in_a(*(int*)stacks->b->content, stacks->a);
 		ft_printf("is: %i\n", pos_a); //pos_a is the one bigger ->needs to become first, then pa
-		
 		
 		steps = calc_steps_a(stacks->a, pos_a, &rot);
 		ft_printf("a rot: %i\n", rot);

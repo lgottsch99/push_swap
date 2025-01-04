@@ -4,10 +4,13 @@
 
 /*
 TO DO 
-write all operation fts
 what if arg/input is empty? " " "" 
 what if - or + only? OK
 single input string "2 6  8  9 0" should work too! OK
+check w checker program at school
+memleaks check
+norm
+
 
 STRATEGY NEW
 1. read input into char list : The first argument should be at the top of the stack (be careful about the order).
