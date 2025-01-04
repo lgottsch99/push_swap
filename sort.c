@@ -182,7 +182,8 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 		//rotate b so that max on top
 
 		stacks = sort_3(stacks);
-		
+		print_both(stacks);
+
 		//push back to a (!a ASCENDING ORDER smallest 1st)
 		stacks = push_back(stacks);
 			//TO DO

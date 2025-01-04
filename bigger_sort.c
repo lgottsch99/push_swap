@@ -297,6 +297,33 @@ void	do_push(t_stack *stacks, t_info *cheapest)
 
 }
 
+t_stack *final_rot_b(t_stack *stacks)//want max to be at 1 in b
+{
+	t_list	*max;
+	int		maxpos;
+	int 	rot;
+	int		steps;
+	//get pos max
+	rot = -1;
+	steps = 0;
+	max = get_max(stacks->b);
+	maxpos = get_position(stacks->b, max);
+	if (maxpos != 1)
+		steps = calc_steps(stacks->b, maxpos, &rot);
+	//rotate b
+	while (steps > 0)//1 is up ra, 0 is down rra 
+	{
+		if (rot == 1)//
+			stacks = rb(stacks);
+		else if (rot == 0)
+			stacks = rrb(stacks);
+		steps--;
+	}
+	return (stacks);
+}
+
+
+
 t_stack	*do_bigger_sort(t_stack	*stacks)
 {
 	ft_printf("in bigger sort\n");
@@ -382,11 +409,6 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 			cheapest.rrr = info.rrr;
 			cheapest.total_steps = info.total_steps;
 		}
-		// else if (info.total_steps < cheapest.total_steps)
-		// {
-		// 	info.cheapest_steps_a = steps_needed;
-		// 	info.cheapest_pos_a = pos_a;
-		// }
 		pos_a++;
 
 	}
@@ -395,6 +417,9 @@ print_both(stacks);
 	//TO DO: execution of push, recursion to do until size_a == 3??
 	print_info(&cheapest);
 	do_push(stacks, &cheapest);
+
+	//rotate to have max at 1
+	stacks = final_rot_b(stacks);
 	return (stacks);
 }
 

@@ -74,6 +74,7 @@ char    **check_whitespace(char *str);
 
 //bigger sort
 t_stack	*do_bigger_sort(t_stack	*stacks);
+int 	calc_steps(t_list *lst, int pos, int *rot); //pos needs to be 1 to push correctly
 
 //push back
 t_stack	*push_back(t_stack *stacks);
