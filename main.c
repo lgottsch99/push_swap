@@ -7,10 +7,11 @@ TO DO
 what if arg/input is empty? " " "" 
 what if - or + only? OK
 single input string "2 6  8  9 0" should work too! OK
-check w checker program at school
 memleaks check
 norm
-
+ERROR:
+check pushing to b with big input has problems, not sorted
+check push back, seems to be too many of ra rra
 
 STRATEGY NEW
 1. read input into char list : The first argument should be at the top of the stack (be careful about the order).
@@ -37,7 +38,7 @@ STRATEGY NEW
 
 void	replace_int(t_list **list)
 {
-	ft_printf("in replace int\n");
+	//ft_printf("in replace int\n");
 
 	int	*integer;
 	int	nr;
@@ -87,7 +88,7 @@ int	main(int argc, char *argv[])
 
 	//1. read into char list 
 	stacks.a = read_into_list(argc, argv); //maybe add sth about empty "  " later
-	print_list(stacks.a);
+	//print_list(stacks.a);
 
 	//2. check each list elem for validity,
 	if (check_valid(&stacks.a) == 1)
@@ -95,21 +96,17 @@ int	main(int argc, char *argv[])
 	 	ft_printf("Error\n");
 	 	return (1);
 	}
-	ft_printf("input ok\n");
+	//ft_printf("input ok\n");
 
 	//3. if all valid change to int
 	replace_int(&stacks.a);
-	print_both(&stacks);
+	//print_both(&stacks);
 
 	//3.sort
 	stacks = *sort(&stacks);
 
-	//stacks = *rra(&stacks);
-	//print_int_list(stacks.a, 'a');
-	print_both(&stacks);
+//print_both(&stacks);
 
-	// stacks = *rra(&stacks);
-	// 	print_both(&stacks);
 	//free_everything(stacks);
 	return (0);
 }

@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_into_list_char.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:22:27 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:33:45 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -22,10 +32,11 @@ void	add_to_list(t_list **list, char *ptr)
 
 	//ceate new node
 	node = ft_lstnew(ptr); //MALLOC
+	//if (!node)
+
+	
 	//append to list
 	ft_lstadd_back(list, node);
-
-	//return (list);
 }
 
 void	create_str_to_list(t_list **list, char *argv)
@@ -52,7 +63,7 @@ void	create_str_to_list(t_list **list, char *argv)
 
 t_list	*read_into_list(int argc, char *argv[])
 {
-	ft_printf("in read list\n");
+	//ft_printf("in read list\n");
 	t_list	*list;
 	char	**ptr;
 	int		i;

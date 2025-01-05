@@ -1,15 +1,31 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort3.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:21:08 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:55:59 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 int	get_position(t_list *list, t_list *node)
 {
-	int	i;
+	int		i;
+	t_list	*tmp;
 
+	tmp = list;
 	i = 1;
-	while (list && *(int *)list->content != *(int *)node->content)
+	while (tmp) //&& *(int *)tmp->content != *(int *)node->content)
 	{
-		list = list->next;
+		// ft_printf("tmp: %i\n", *(int *)tmp->content);
+		// ft_printf("node: %i\n", *(int *)node->content);
+		if (*(int *)tmp->content == *(int *)node->content)
+			break;
+		tmp = tmp->next;
 		i++;
 	}
 	return (i);
@@ -17,7 +33,7 @@ int	get_position(t_list *list, t_list *node)
 
 t_stack	*sort_3(t_stack *stacks) //list is def 3 in size, atm only stack a 
 {
-	ft_printf("in sort 3\n");
+	//ft_printf("in sort 3\n");
 	//get min + max value and position
 	//decide how to swap (max 2 op. in only two cases)
 
@@ -29,9 +45,9 @@ t_stack	*sort_3(t_stack *stacks) //list is def 3 in size, atm only stack a
 
 	list = stacks->a;
 	min = get_min(list);
-		// ft_printf("min is: %i\n", *(int *)min->content);
+		 //ft_printf("min is: %i\n", *(int *)min->content);
 	minpos = get_position(list, min);
-		// ft_printf("pos min is: %i\n",minpos);
+		 //ft_printf("pos min is: %i\n",minpos);
 
 	max = get_max(list);
 	maxpos = get_position(list, max);
@@ -55,7 +71,7 @@ t_stack	*sort_3(t_stack *stacks) //list is def 3 in size, atm only stack a
 		if (maxpos == 1)
 		{
 			stacks = ra(stacks);
-			stacks = ra(stacks);
+			stacks = sa(stacks);
 		}
 		if (maxpos == 2)
 			stacks = rra(stacks);

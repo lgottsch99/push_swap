@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:26:50 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 17:36:00 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -72,6 +82,7 @@ int	check_dups(t_list **list, int i) //only digits within int range
 
 	tmp = *list;
 	//go to current node at position i, save value somewhere
+	//tmp = get_node_at_pos()
 	y = 0;
 	while (y < i)
 	{
@@ -147,7 +158,6 @@ int	check_valid(t_list **list)
 			return (1);
 		//ft_printf("digits ok\n");
 
-		//ft_printf("check is: %i\n", check);
 		if(check_int_range(ptr->content) == 1)
 			return (1);
 		//ft_printf("int range ok\n");

@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverse.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:24:01 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:33:44 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -8,8 +18,6 @@ The last element becomes the first one.
 rrb (reverse rotate b): Shift down all elements of stack b by 1. The last element becomes the first one.
 rrr : rra and rrb at the same time.
 */
-
-
 
 t_stack	*real_rra(t_stack *stacks) //Shift down all elements of stack a by 1.
 {

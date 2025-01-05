@@ -1,13 +1,21 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   swaps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:24:44 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:33:41 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
-//operate on pointers to stack to actually change lists
 
 /*
 sa (swap a): Swap the first 2 elements at the top of stack a. Do nothing if there is only one or no elements.
 sb (swap b): Swap the first 2 elements at the top of stack b. Do nothing if there is only one or no elements.
 ss : sa and sb at the same time.
-
 
 typedef struct s_stack {
     t_list  *a;
@@ -55,7 +63,6 @@ t_stack  *sb(t_stack *stack) //insert first elem. after 2nd,
 	stack = real_sb(stack);
 	return (stack);
 }
-
 
 t_stack  *real_sb(t_stack *stack)
 {

@@ -1,10 +1,20 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_back.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:25:37 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:33:48 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
 int calc_steps_a(t_list *lst, int pos, int *rot) //pos needs to be 1 to push correctly, own ft for a bc ascending order
 {
-	ft_printf("in normal calc steps\n");
+	//ft_printf("in normal calc steps\n");
 	int	steps;
 	int	mid;
 	int size;
@@ -84,7 +94,7 @@ int	get_pos_in_a(int nr_b, t_list *a) //TO DO : check if working
 	{
 		pos = inbetween(nr_b, a);
 	}
-	ft_printf("pos for stack b %i in a ", nr_b); //at pos is the one bigger
+	//ft_printf("pos for stack b %i in a ", nr_b); //at pos is the one bigger
 		return (pos);
 }
 
@@ -101,8 +111,8 @@ t_stack	*final_rot_a(t_stack *stacks)
 	minpos = get_position(stacks->a, min);
 	//get steps + rotation
 	steps = calc_steps_a(stacks->a, minpos, &rot);
-			ft_printf("final a rot: %i\n", rot);
-		ft_printf("final steps: %i\n", steps);
+		// 	ft_printf("final a rot: %i\n", rot);
+		// ft_printf("final steps: %i\n", steps);
 
 	//rotate --possible new ft
 	while (steps > 0)
@@ -134,11 +144,11 @@ t_stack	*push_back(t_stack *stacks)//push back to a (!a ASCENDING ORDER smallest
 	{
 		//TODO check if new max min or inbetween!
 		pos_a = get_pos_in_a(*(int*)stacks->b->content, stacks->a);
-		ft_printf("is: %i\n", pos_a); //pos_a is the one bigger ->needs to become first, then pa
+	//	ft_printf("is: %i\n", pos_a); //pos_a is the one bigger ->needs to become first, then pa
 		
 		steps = calc_steps_a(stacks->a, pos_a, &rot);
-		ft_printf("a rot: %i\n", rot);
-		ft_printf("steps: %i\n", steps);
+		// ft_printf("a rot: %i\n", rot);
+		// ft_printf("steps: %i\n", steps);
 		//rotate a -----possible outsource
 		while (steps > 0)
 		{

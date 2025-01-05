@@ -1,4 +1,14 @@
-//HEADER
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 16:24:19 by lgottsch          #+#    #+#             */
+/*   Updated: 2025/01/05 16:33:44 by lgottsch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -7,7 +17,6 @@ ra (rotate a): Shift up all elements of stack a by 1.
 The first element becomes the last one.
 rb (rotate b): Shift up all elements of stack b by 1. The first element becomes the last one.
 rr : ra and rb at the same time.
-
 
 */
 
