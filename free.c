@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:27:17 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/01/05 16:33:50 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/01/06 17:27:43 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_list(t_list *lst)
 		tmp = lst;
 		lst = lst->next;
 		free(tmp->content);
-		free(tmp);
+		free(tmp->next);
 		tmp = NULL;
 	}
 }

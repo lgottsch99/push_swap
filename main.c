@@ -4,14 +4,9 @@
 
 /*
 TO DO 
-what if arg/input is empty? " " "" 
-what if - or + only? OK
-single input string "2 6  8  9 0" should work too! OK
-memleaks check
+what if arg/input is empty? " " "" inbetween?
+memleaks 
 norm
-ERROR:
-check pushing to b with big input has problems, not sorted
-check push back, seems to be too many of ra rra
 
 STRATEGY NEW
 1. read input into char list : The first argument should be at the top of the stack (be careful about the order).
@@ -36,7 +31,7 @@ STRATEGY NEW
 */
 
 
-void	replace_int(t_list **list)
+void	replace_int(t_list **list) //LEAKS
 {
 	//ft_printf("in replace int\n");
 
@@ -56,14 +51,23 @@ void	replace_int(t_list **list)
 	i = 0;
 	while (i < lstsize)
 	{
-		str = (char *)tmp->content;
 		//malloc space for int
+		integer = NULL;
 		integer = (int *)malloc(sizeof(int));
-		// if(!integer)
-		// 	free_all(); //TO DOO
+		if(!integer)//LEAKS/REACHABLES
+		{
+			//ft_printf("no int\n");
+			free_list(*list);
+
+			tmp = NULL;
+			*list = NULL;
+			list = NULL;
+			exit(1);
+		}
 		//ft_printf("malloced\n");
 
 		//atoi str and copy into int space
+		str = (char *)tmp->content;
 		nr = ft_atoi(str);
 		ft_memcpy(integer, &nr, sizeof(int));
 
@@ -94,6 +98,7 @@ int	main(int argc, char *argv[])
 	if (check_valid(&stacks.a) == 1)
 	{
 	 	ft_printf("Error\n");
+		free_list(stacks.a);
 	 	return (1);
 	}
 	//ft_printf("input ok\n");
@@ -107,6 +112,6 @@ int	main(int argc, char *argv[])
 
 //print_both(&stacks);
 
-	//free_everything(stacks);
+	free_everything(&stacks);
 	return (0);
 }

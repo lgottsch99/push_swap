@@ -66,7 +66,7 @@ t_stack	*sort_3(t_stack *stacks);//list is def 3 in size
 t_list	*read_into_list(int argc, char *argv[]);
 void	create_str_to_list(t_list **list, char *argv);
 void    add_to_list(t_list **list, char *ptr);
-char    **check_whitespace(char *str);
+char    **check_whitespace(char *str, t_list *lst);
 
 //bigger sort
 t_stack	*do_bigger_sort(t_stack	*stacks);
