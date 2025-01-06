@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:21:04 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/01/05 17:46:02 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:28:06 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,31 @@ t_stack	*sort_2(t_stack *stacks)//list is def 2 in size
 	return (stacks);
 }
 
+t_stack *final_rot_b(t_stack *stacks)//want max to be at 1 in b
+{
+	t_list	*max;
+	int		maxpos;
+	int 	rot;
+	int		steps;
+	//get pos max
+	rot = -1;
+	steps = 0;
+	max = get_max(stacks->b);
+	maxpos = get_position(stacks->b, max);
+	if (maxpos != 1)
+		steps = calc_steps(stacks->b, maxpos, &rot);
+	//rotate b
+	while (steps > 0)//1 is up ra, 0 is down rra 
+	{
+		if (rot == 1)//
+			stacks = rb(stacks);
+		else if (rot == 0)
+			stacks = rrb(stacks);
+		steps--;
+	}
+	return (stacks);
+}
+
 t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 {
 	int	size;
@@ -73,7 +98,7 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 	size = ft_lstsize(stacks->a);
 	if (is_input_sorted(stacks) == 1)//check if list already sorted
 	{
-		//ft_printf("input is sorted\n");
+		ft_printf("input is sorted\n");
 		return (stacks);
 	}
 
@@ -90,15 +115,21 @@ t_stack	*sort(t_stack *stacks)//TO DO: logik/approach entscheiden
 		while (ft_lstsize(stacks->a) > 3)
 		{
 			stacks = do_bigger_sort(stacks);
-			print_both(stacks);
+			//print_both(stacks);
 		}
 		//rotate b so that max on top //TO DO
+		// 		ft_printf("before final rot b\n");
+		// print_both(stacks);
 
+		stacks = final_rot_b(stacks);
+			//			ft_printf("\nafter final rot b\n");
+
+		//print_both(stacks);
 		stacks = sort_3(stacks);
 		//print_both(stacks);
 
 		//push back to a (!a ASCENDING ORDER smallest 1st)
-		//stacks = push_back(stacks);
+		stacks = push_back(stacks);
 			//TO DO
 		//for 1st in b: 
 			//find correct pos in a to push 

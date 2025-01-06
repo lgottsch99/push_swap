@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:26:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/01/05 16:33:53 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:28:30 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ t_list	*get_node_at_pos(t_list *list, int pos)
 
 	node = list;
 	i = 1;
-	while (i != pos && pos <= ft_lstsize(list))
+	while (i != pos)// && pos <= ft_lstsize(list))
 	{
-		if (node->next)
+		//if (node->next)
 			node = node->next;
-		else
-			break ;
+		//else
+			//break ;
 		i++;
 	}
 	return (node);
@@ -97,13 +97,13 @@ int calc_steps(t_list *lst, int pos, int *rot) //pos needs to be 1 to push corre
 	if (size <= 3)
 		mid = 1;
 	else
-		mid = size / 2;
+		mid = get_mid_pos(lst);
 
 	steps = 0;
 	if (pos <= mid)//in erster hälfte
 	{
 		*rot = 1; //ra
-		while (pos > 1)
+		while (pos != 1)
 		{
 			pos--;
 			steps++;
@@ -112,7 +112,7 @@ int calc_steps(t_list *lst, int pos, int *rot) //pos needs to be 1 to push corre
 	else if (pos > mid)//zweite hälfte
 	{
 		*rot = 0; //rra
-		while (pos < (size + 1))
+		while (pos != (size + 1))
 		{
 			pos++;
 			steps++;
@@ -134,20 +134,20 @@ int calc_steps_last(t_list *lst, int pos, int *rot) //pos needs to be LAST, whic
 	if (size <= 3)
 		mid = 1;
 	else
-		mid = size / 2;
+		mid = get_mid_pos(lst);
 	steps = 0;
 	//ft_printf("mid b in calc steps to last: %i\n", mid);
 
-	if (pos <= mid)//in erster hälfte
+	if (pos < mid)//in erster hälfte
 	{
 		*rot = 1; //ra
-		while (pos > 0)
+		while (pos > 0) //0 bc we wantto get last pos
 		{
 			pos--;
 			steps++;
 		}
 	}
-	else if (pos > mid)//zweite hälfte
+	else if (pos >= mid)//zweite hälfte
 	{
 		*rot = 0; //rra
 		while (pos < size)
@@ -169,24 +169,25 @@ int	rotation_b(t_list *node_a, t_list *b, t_info *info)
 	t_list	*max;
 	int		maxpos;
 	int		pos_in_b;
-	//int		size_b;
-	//int		mid;
-	//int		steps;
 	
 	//get size of list b, max pos and minpos
 	info->steps_b = 0;
 	info->size_b = ft_lstsize(b);
 	min = get_min(b);
 	max = get_max(b);
+			//  ft_printf("max b is: %i\n", *(int *)max->content);
+			//  ft_printf("min b is: %i\n", *(int *)min->content);
+
 	maxpos = get_position(b, max);
+		//	 ft_printf("max pos b is: %i\n", maxpos);
+
 	//minpos = get_position(b, min);
 	//compare value from a against min max in b
 	if (*(int *)node_a->content > *(int *)max->content || *(int *)node_a->content < *(int *)min->content)//new is new max or min
 	{		//max in b needs to become pos 1 in b 
 		// ft_printf("nr would be new min /Max\n");
-		// ft_printf("max pos b is: %i\n", maxpos);
-		//do nothing if max is pos 1st already 
-		if (maxpos != 1)
+		//do nothing if mamakx is pos 1st already 
+		if (maxpos > 1)
 			info->steps_b = calc_steps(b, maxpos, &info->rot_b);
 		else 
 			info->steps_b = 0;
@@ -199,7 +200,7 @@ int	rotation_b(t_list *node_a, t_list *b, t_info *info)
 		pos_in_b = get_pos_in_b(node_a, b, max); //node at posinb is smaller than new // TO DO : update ft
 		//ft_printf("pos for a in b would be: %i\n", pos_in_b);
 		//calc steps how to get there (rotation only)s
-		if (pos_in_b != 1)
+		if (pos_in_b > 1)
 			info->steps_b = calc_steps(b, pos_in_b, &info->rot_b); //smaller should  be 1st!!
 		else 
 			info->steps_b = 0;
@@ -211,22 +212,35 @@ int	rotation_b(t_list *node_a, t_list *b, t_info *info)
 
 }
 
-int	rotation_a(int pos_a, int size_a, t_info *info)//pos_a = node für die calculated 
+int	get_mid_pos(t_list *lst)//get middle node of list effectively using %
+{
+	int mid;
+	int size;
+
+	size = ft_lstsize(lst);
+	if (size % 2 == 1)//ungerade 
+		mid = size / 2 + 1;
+	else //gerade anzahl
+		mid = size / 2;
+	return (mid);
+}
+
+void	rotation_a(int pos_a, int size_a, t_info *info, t_list *a)//pos_a = node für die calculated 
 {	//1. pb nur möglich wenn node pos 1 in a
 		//get position in a, decide which way to rotate: ra oder rra
 
 	int	mid;
 	int	steps;
-		
+	
 		//--------zsmfassen mit calc steps
 	steps = 0;
-	mid = size_a / 2;
+	mid = get_mid_pos(a);
 	//ft_printf("mid pos is: %i\n", mid);
 
 	if (pos_a <= mid)//in erster hälfte
 	{
 		info->rot_a = 1; //ra
-		while (pos_a != 1)//until we reached pos
+		while (pos_a > 1)//until we reached pos
 		{
 			pos_a--;
 			steps++;
@@ -236,20 +250,21 @@ int	rotation_a(int pos_a, int size_a, t_info *info)//pos_a = node für die calcu
 	{
 		info->rot_a = 0; //rra
 
-		while (pos_a != (size_a + 1))//rotate up to 1. pos
+		while (pos_a < (size_a + 1))//rotate up to 1. pos
 		{
 			pos_a++;
 			steps++;
 		}
 	}
 	//---------------
+	//ft_printf("steps a: %i\n", steps);
+	info->steps_a = steps;
 
-	return (steps);
 }
 
-void init_info(t_info *info)
+void init_info(t_info *info, int pos, t_list *a)
 {
-	info->size_a = 0;
+	info->size_a = ft_lstsize(a);
 	info->size_b = 0;
 	info->rot_a = -1;
 	info->rot_b = -1;
@@ -258,11 +273,7 @@ void init_info(t_info *info)
 	info->rr = 0;
 	info->rrr = 0;
 	info->total_steps = 0;
-	info->pos_a = 0;
-	// info->cheapest_pos_a = 0;
-	// info->cheapest_steps_a = 0;
-	// info->cheapest_rot_a = -1;
-	// info->cheapest_rot_b = -1;
+	info->pos_a = pos;
 
 }
 
@@ -273,12 +284,12 @@ void	do_push(t_stack *stacks, t_info *cheapest)
 	//rr or rrr first
 	if (cheapest->rr > 0 || cheapest->rrr > 0)
 	{
-		while (cheapest->rr != 0)
+		while (cheapest->rr > 0)
 		{
 			stacks = rr(stacks);
 			cheapest->rr--;
 		}
-		while (cheapest->rrr != 0)
+		while (cheapest->rrr > 0)
 		{
 			stacks = rrr(stacks);
 			cheapest->rrr--;
@@ -306,32 +317,54 @@ void	do_push(t_stack *stacks, t_info *cheapest)
 
 }
 
-t_stack *final_rot_b(t_stack *stacks)//want max to be at 1 in b
+// t_stack *final_rot_b(t_stack *stacks)//want max to be at 1 in b
+// {
+// 	t_list	*max;
+// 	int		maxpos;
+// 	int 	rot;
+// 	int		steps;
+// 	//get pos max
+// 	rot = -1;
+// 	steps = 0;
+// 	max = get_max(stacks->b);
+// 	maxpos = get_position(stacks->b, max);
+// 	if (maxpos != 1)
+// 		steps = calc_steps(stacks->b, maxpos, &rot);
+// 	//rotate b
+// 	while (steps > 0)//1 is up ra, 0 is down rra 
+// 	{
+// 		if (rot == 1)//
+// 			stacks = rb(stacks);
+// 		else if (rot == 0)
+// 			stacks = rrb(stacks);
+// 		steps--;
+// 	}
+// 	return (stacks);
+// }
+
+t_info	*rot_check(t_info *info)
 {
-	t_list	*max;
-	int		maxpos;
-	int 	rot;
-	int		steps;
-	//get pos max
-	rot = -1;
-	steps = 0;
-	max = get_max(stacks->b);
-	maxpos = get_position(stacks->b, max);
-	if (maxpos != 1)
-		steps = calc_steps(stacks->b, maxpos, &rot);
-	//rotate b
-	while (steps > 0)//1 is up ra, 0 is down rra 
+	//check if some ra/rra can be optimized w rr/rrr
+	//1 is up ra, 0 is down rra
+	if (info->rot_a == info->rot_b)//rot same direction
 	{
-		if (rot == 1)//
-			stacks = rb(stacks);
-		else if (rot == 0)
-			stacks = rrb(stacks);
-		steps--;
+		if(info->steps_a > 0 && info->steps_b > 0)
+		{
+			while (info->steps_a > 0 && info->steps_b > 0)
+			{
+				if (info->rot_a == 1)//1 is up ra, 0 is down rra
+					info->rr += 1;
+				else if (info->rot_a == 0)
+					info->rrr += 1;
+
+				info->steps_a--;
+				info->steps_b--;
+			}
+		}
 	}
-	return (stacks);
+	info->total_steps = 1 + info->steps_a + info->steps_b + info->rr + info->rrr; //1 für pb
+	return(info);
 }
-
-
 
 t_stack	*do_bigger_sort(t_stack	*stacks)
 {
@@ -341,17 +374,15 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 	t_info	info;
 	t_info	cheapest;
 
-	init_info(&info);
-	init_info (&cheapest);
-
+	pos_a = 1;
+	init_info(&info, pos_a, stacks->a);
+	init_info (&cheapest, 0, stacks->a);
 
 	info.size_a = ft_lstsize(stacks->a);
-	pos_a = 1;
-	//cheapest = pos_a;
-
-	//TO DO: some structure to keep track of results?? = 2 structs
+	//ft_printf("size a: %i\n", info.size_a);
 	while (pos_a <= info.size_a) //calculating cheapest to push
 	{
+		init_info(&info, pos_a, stacks->a);
 		//ft_printf("\nchecking stack a pos: %i\n", pos_a);
 
 	//go thru whole stack a (until only 3 left) and calc for each number how many steps (in a and b) would be needed to put in right position
@@ -363,8 +394,8 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 
 	//1. pb nur möglich wenn node pos 1 in a
 		//get position in a, decide which way to rotate: ra oder rra
-		info.steps_a = rotation_a(pos_a, info.size_a, &info);
-		//info.steps_a = calc_steps(stacks->a, pos_a, &info.rot_a);
+		//info.steps_a = rotation_a(pos_a, info.size_a, &info, stacks->a);
+		rotation_a(pos_a, info.size_a, &info, stacks->a);
 			// ft_printf("rotation steps a: %i\n", info.steps_a);
 			// ft_printf("direction rot_a: %i\n", info.rot_a);
 
@@ -374,32 +405,12 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 		// 	ft_printf("direction rot_b: %i\n", info.rot_b);
 		// ft_printf("total steps_needed before rot check: %i\n", info.steps_a + info. steps_b + 1);
 
-	// rotation check: if same direction check if ss rrr etc possible!
-		//rr both up
-		///rrr both down
-		if((info.rot_a == info.rot_b) && ((info.steps_a > 0) && (info.steps_b > 0)))//rot direction is the same and we have rot steps in both
-		{
-			//decrease overall steps
-			if (info.rot_a == 1) //ra
-			{
-				while (info.steps_a > 0 && info.steps_b > 0)
-				{
-					info.rr += 1;
-					info.steps_a--;
-					info.steps_b--;
-				}
-			}
-			if (info.rot_a == 0) //rra
-			{
-				while (info.steps_a > 0 && info.steps_b > 0)
-				{
-					info.rrr += 1;
-					info.steps_a--;
-					info.steps_b--;
-				}
-			}
-		}
-		info.total_steps = 1 + info.steps_a + info.steps_b + info.rr + info.rrr; //1 für pb
+	// rotation check: if same direction check if rrr etc possible!
+		//print_info(&cheapest);
+		//print_info(&info);
+		info = *rot_check(&info);
+		//print_info(&info);
+
 
 		// ft_printf("a pos: %i\n",pos_a);
 		// ft_printf("total steps_needed after rot check: %i\n", info.total_steps);
@@ -414,23 +425,20 @@ t_stack	*do_bigger_sort(t_stack	*stacks)
 			cheapest.rrr = info.rrr;
 			cheapest.total_steps = info.total_steps;
 		}
+
 		pos_a++;
 
 	}
-	// ft_printf("\ncheapest pos in a: %i\n", cheapest.pos_a);
-	// print_both(stacks);
-	//TO DO: execution of push, recursion to do until size_a == 3??
-	//print_info(&cheapest);
+	// ft_printf("cheapest info:\n");
+	// print_info(&cheapest);
 	do_push(stacks, &cheapest);
 
-	//rotate to have max at 1
-	stacks = final_rot_b(stacks);
 	return (stacks);
 }
 
 void	print_info(t_info *info)
 {
-		ft_printf("\ninfo cheapest:\n");
+		//ft_printf("\ninfo cheapest:\n");
 
 	ft_printf("size_a; %i\n", info->size_a);
 	ft_printf("size_b; %i\n", info->size_b);
@@ -441,7 +449,6 @@ void	print_info(t_info *info)
 	ft_printf("rr; %i\n", info->rr);
 	ft_printf("rrr; %i\n", info->rrr);
 	ft_printf("total steps; %i\n", info->total_steps);
-	ft_printf("cheapest pos in a; %i\n\n", info->pos_a);
-	// int cheapest_pos_a;
+	ft_printf(" pos in a; %i\n\n", info->pos_a);
 
 }

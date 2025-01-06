@@ -6,7 +6,7 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:25:08 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/01/05 16:37:58 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/01/06 13:08:46 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,10 @@ t_list	*get_min(t_list	*list)
 	min = list; //set to 1st node
 	while (list)
 	{
+		if (*(int *)min->content > *(int *)list->content)//change if current is bigger than new 
+			min = list;
+		
 		list = list->next; //go to next
-		if (list)
-		{
-			if (*(int *)min->content > *(int *)list->content)//change if current is bigger than new 
-				min = list;
-		}
 	}
 	return (min);
 }
@@ -95,12 +93,13 @@ t_list	*get_max(t_list	*list)
 	max = list; //set to 1st node
 	while (list)
 	{
-		list = list->next; //go to next
 		if (list)
 		{
 			if (*(int *)max->content < *(int *)list->content)//change if current is smaller than new 
 				max = list;
 		}
+		list = list->next; //go to next
+
 	}
 	return (max);
 }

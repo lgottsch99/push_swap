@@ -10,7 +10,7 @@ typedef struct s_stack {
     t_list  *b;
 } t_stack;
 
-typedef struct s_info { //splitten in eins für info und eins für cheapest!
+typedef struct s_info {
 	int	size_a;
 	int size_b;
 	int rot_a; //indicating rotation direction: 1 is up ra, 0 is down rra
@@ -21,10 +21,6 @@ typedef struct s_info { //splitten in eins für info und eins für cheapest!
 	int rrr;
 	int total_steps;
 	int pos_a;
-	// int cheapest_pos_a;
-	// int cheapest_steps_a;
-	// int cheapest_rot_a; //to safe direction for execution
-	// int cheapest_rot_b;
 
 } t_info;
 
@@ -75,6 +71,8 @@ char    **check_whitespace(char *str);
 //bigger sort
 t_stack	*do_bigger_sort(t_stack	*stacks);
 int 	calc_steps(t_list *lst, int pos, int *rot); //pos needs to be 1 to push correctly
+int	get_mid_pos(t_list *lst);//get middle node of list effectively using %
+
 
 //push back
 t_stack	*push_back(t_stack *stacks);
