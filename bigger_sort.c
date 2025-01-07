@@ -6,29 +6,11 @@
 /*   By: lgottsch <lgottsch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 16:26:11 by lgottsch          #+#    #+#             */
-/*   Updated: 2025/01/06 15:28:30 by lgottsch         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:29:06 by lgottsch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// typedef struct s_info { //splitten in eins für info und eins für cheapest!
-// 	int	size_a;
-// 	int size_b;
-// 	int rot_a; //indicating rotation direction: 1 is up ra, 0 is down rra
-// 	int rot_b; //indicating rotation direction: 1 is up ra, 0 is down rra 
-// 	int steps_a; //keeping amount of steps for each pos
-// 	int steps_b;
-// 	int rr; //amount steps for rr
-// 	int rrr;
-// 	int total_steps;
-// 	int pos_a;
-// 	// int cheapest_pos_a;
-// 	// int cheapest_steps_a;
-// 	// int cheapest_rot_a; //to safe direction for execution
-// 	// int cheapest_rot_b;
-
-// } t_info;
 
 t_list	*get_node_at_pos(t_list *list, int pos)
 {
